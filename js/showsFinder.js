@@ -29,129 +29,133 @@ function getDataSearchShows(shows) {
     let numberOfmodal = 1;
 
     for (const data of shows) {
+        const parentCard = document.createElement("div");
+        parentCard.classList.add("col-sm-12");
+        parentCard.classList.add("col-md-6");
+        parentCard.classList.add("col-lg-4");
+
+        const divCard = document.createElement("div");
+        divCard.classList.add("card");
+        divCard.classList.add("mx-auto");
+        divCard.classList.add("mb-2");
+        divCard.setAttribute("style", "width: 18rem; height: 40em;");
+
+        const img = document.createElement("img");
+        
         if (data.show.image) {
-            const parentCard = document.createElement("div");
-            parentCard.classList.add("col-sm-12");
-            parentCard.classList.add("col-md-6");
-            parentCard.classList.add("col-lg-4");
-
-            const divCard = document.createElement("div");
-            divCard.classList.add("card");
-            divCard.classList.add("mx-auto");
-            divCard.classList.add("mb-2");
-            divCard.setAttribute("style", "width: 18rem; height: 40em;");
-
-            const img = document.createElement("img");
             img.src = data.show.image.original;
-            img.classList.add("card-img-top");
-            img.setAttribute("alt", `Image ${data.show.name}`);
-            img.setAttribute("style", "height: 25em;");
-
-            const divCardBody = document.createElement("div");
-            divCardBody.classList.add("card-body");
-
-            const divCardTitle = document.createElement("div");
-            divCardTitle.setAttribute("style", "height: 3em;");
-
-            const cardTitle = document.createElement("h5");
-            cardTitle.classList.add("card-title");
-            cardTitle.innerText = (data.show.name.length > 40) ? data.show.name.substring(0, 40).concat("...") : data.show.name;
-
-            const divSummaryDescription = document.createElement("div");
-            divSummaryDescription.setAttribute("style", "height: 5em;");
-
-            const summaryDescription = document.createElement("p");
-            summaryDescription.classList.add("card-text");
-
-            const divBtnFullDesc = document.createElement("div");
-            divBtnFullDesc.setAttribute("style", "height: 1.5em;");
-
-            const btnFullDesc = document.createElement("a");
-            btnFullDesc.classList.add("link-primary");
-            btnFullDesc.setAttribute("role", "button");
-            btnFullDesc.setAttribute("data-bs-toggle", "modal");
-            btnFullDesc.setAttribute("data-bs-target", `#staticBackdrop${numberOfmodal}`);
-            btnFullDesc.innerText = "Lihat Selengkapnya";
-
-            const modalFade = document.createElement("div");
-            modalFade.classList.add("modal");
-            modalFade.classList.add("fade");
-            modalFade.setAttribute("id", `staticBackdrop${numberOfmodal}`);
-            modalFade.setAttribute("data-bs-backdrop", "static");
-            modalFade.setAttribute("data-bs-keyboard", "false");
-            modalFade.setAttribute("tabindex", "-1");
-            modalFade.setAttribute("aria-labelledby", "staticBackdropLabel");
-            modalFade.setAttribute("aria-hidden", "true");
-
-            const modalDialog = document.createElement("div");
-            modalDialog.classList.add("modal-dialog");
-
-            const modalContent = document.createElement("div");
-            modalContent.classList.add("modal-content");
-
-            const modalHeader = document.createElement("div");
-            modalHeader.classList.add("modal-header");
-
-            const modalHeaderTitle = document.createElement("h1");
-            modalHeaderTitle.classList.add("modal-title");
-            modalHeaderTitle.classList.add("fs-5");
-            modalHeaderTitle.setAttribute("id", "staticBackdropLabel")
-            modalHeaderTitle.innerText = data.show.name;
-
-            const btnModalHeaderClose = document.createElement("button");
-            btnModalHeaderClose.classList.add("btn-close");
-            btnModalHeaderClose.setAttribute("type", "button");
-            btnModalHeaderClose.setAttribute("data-bs-dismiss", "modal");
-            btnModalHeaderClose.setAttribute("aria-label", "Close");
-
-            const modalBody = document.createElement("div");
-            modalBody.classList.add("modal-body");
-            modalBody.innerHTML = data.show.summary;
-            
-            const description = data.show.summary + " ";
-            const textSummaryDescription = (description.length > 70) ? data.show.summary.substring(0, 70).concat("...", "</p>") : data.show.summary;
-            summaryDescription.innerHTML = textSummaryDescription;
-
-            const divBtnOfficialSite = document.createElement("div");
-            divBtnOfficialSite.classList.add("mt-2");
-
-            const btnOfficialSite = document.createElement("a");
-            btnOfficialSite.classList.add("btn");
-            btnOfficialSite.classList.add("btn-primary");
-
-            if (data.show.officialSite == null || data.show.officialSite == undefined) {
-                btnOfficialSite.classList.add("disabled");
-                btnOfficialSite.innerText = "Official Site";
-            }
-
-            btnOfficialSite.href = data.show.officialSite;
-            btnOfficialSite.setAttribute("target", "_blank");
-            btnOfficialSite.innerText = "Official Site";
-
-            containerResult.insertAdjacentElement("beforeend", parentCard);
-            parentCard.insertAdjacentElement("beforeend", divCard);
-            divCard.insertAdjacentElement("beforeend", img);
-            divCard.insertAdjacentElement("beforeend", divCardBody);
-            divCardBody.insertAdjacentElement("beforeend", divCardTitle);
-            divCardTitle.insertAdjacentElement("beforeend", cardTitle);
-            divCardBody.insertAdjacentElement("beforeend", divSummaryDescription);
-            divSummaryDescription.insertAdjacentElement("beforeend", summaryDescription);
-            divCardBody.insertAdjacentElement("beforeend", divBtnFullDesc);
-            divBtnFullDesc.insertAdjacentElement("beforeend", btnFullDesc);
-            
-            summaryDescription.insertAdjacentElement("beforeend", modalFade);
-            modalFade.insertAdjacentElement("beforeend", modalDialog);
-            modalDialog.insertAdjacentElement("beforeend", modalContent);
-            modalContent.insertAdjacentElement("beforeend", modalHeader);
-            modalHeader.insertAdjacentElement("beforeend", modalHeaderTitle);
-            modalHeader.insertAdjacentElement("beforeend", btnModalHeaderClose);
-            modalContent.insertAdjacentElement("beforeend", modalBody);
-
-            divCardBody.insertAdjacentElement("beforeend", divBtnOfficialSite);
-            divBtnOfficialSite.insertAdjacentElement("beforeend", btnOfficialSite);
-
-            numberOfmodal++;
+        } else {
+            img.src = "./img/cover-image.png";
         }
+
+        img.classList.add("card-img-top");
+        img.setAttribute("alt", `Image ${data.show.name}`);
+        img.setAttribute("style", "height: 25em;");
+
+        const divCardBody = document.createElement("div");
+        divCardBody.classList.add("card-body");
+
+        const divCardTitle = document.createElement("div");
+        divCardTitle.setAttribute("style", "height: 3em;");
+
+        const cardTitle = document.createElement("h5");
+        cardTitle.classList.add("card-title");
+        cardTitle.innerText = (data.show.name.length > 40) ? data.show.name.substring(0, 40).concat("...") : data.show.name;
+
+        const divSummaryDescription = document.createElement("div");
+        divSummaryDescription.setAttribute("style", "height: 5em;");
+
+        const summaryDescription = document.createElement("p");
+        summaryDescription.classList.add("card-text");
+
+        const divBtnFullDesc = document.createElement("div");
+        divBtnFullDesc.setAttribute("style", "height: 1.5em;");
+
+        const btnFullDesc = document.createElement("a");
+        btnFullDesc.classList.add("link-primary");
+        btnFullDesc.setAttribute("role", "button");
+        btnFullDesc.setAttribute("data-bs-toggle", "modal");
+        btnFullDesc.setAttribute("data-bs-target", `#staticBackdrop${numberOfmodal}`);
+        btnFullDesc.innerText = "Lihat Selengkapnya";
+
+        const modalFade = document.createElement("div");
+        modalFade.classList.add("modal");
+        modalFade.classList.add("fade");
+        modalFade.setAttribute("id", `staticBackdrop${numberOfmodal}`);
+        modalFade.setAttribute("data-bs-backdrop", "static");
+        modalFade.setAttribute("data-bs-keyboard", "false");
+        modalFade.setAttribute("tabindex", "-1");
+        modalFade.setAttribute("aria-labelledby", "staticBackdropLabel");
+        modalFade.setAttribute("aria-hidden", "true");
+
+        const modalDialog = document.createElement("div");
+        modalDialog.classList.add("modal-dialog");
+
+        const modalContent = document.createElement("div");
+        modalContent.classList.add("modal-content");
+
+        const modalHeader = document.createElement("div");
+        modalHeader.classList.add("modal-header");
+
+        const modalHeaderTitle = document.createElement("h1");
+        modalHeaderTitle.classList.add("modal-title");
+        modalHeaderTitle.classList.add("fs-5");
+        modalHeaderTitle.setAttribute("id", "staticBackdropLabel")
+        modalHeaderTitle.innerText = data.show.name;
+
+        const btnModalHeaderClose = document.createElement("button");
+        btnModalHeaderClose.classList.add("btn-close");
+        btnModalHeaderClose.setAttribute("type", "button");
+        btnModalHeaderClose.setAttribute("data-bs-dismiss", "modal");
+        btnModalHeaderClose.setAttribute("aria-label", "Close");
+
+        const modalBody = document.createElement("div");
+        modalBody.classList.add("modal-body");
+        modalBody.innerHTML = data.show.summary;
+        
+        const description = data.show.summary + " ";
+        const textSummaryDescription = (description.length > 70) ? data.show.summary.substring(0, 70).concat("...", "</p>") : data.show.summary;
+        summaryDescription.innerHTML = textSummaryDescription;
+
+        const divBtnOfficialSite = document.createElement("div");
+        divBtnOfficialSite.classList.add("mt-2");
+
+        const btnOfficialSite = document.createElement("a");
+        btnOfficialSite.classList.add("btn");
+        btnOfficialSite.classList.add("btn-primary");
+
+        if (data.show.officialSite == null || data.show.officialSite == undefined) {
+            btnOfficialSite.classList.add("disabled");
+            btnOfficialSite.innerText = "Official Site";
+        }
+
+        btnOfficialSite.href = data.show.officialSite;
+        btnOfficialSite.setAttribute("target", "_blank");
+        btnOfficialSite.innerText = "Official Site";
+
+        containerResult.insertAdjacentElement("beforeend", parentCard);
+        parentCard.insertAdjacentElement("beforeend", divCard);
+        divCard.insertAdjacentElement("beforeend", img);
+        divCard.insertAdjacentElement("beforeend", divCardBody);
+        divCardBody.insertAdjacentElement("beforeend", divCardTitle);
+        divCardTitle.insertAdjacentElement("beforeend", cardTitle);
+        divCardBody.insertAdjacentElement("beforeend", divSummaryDescription);
+        divSummaryDescription.insertAdjacentElement("beforeend", summaryDescription);
+        divCardBody.insertAdjacentElement("beforeend", divBtnFullDesc);
+        divBtnFullDesc.insertAdjacentElement("beforeend", btnFullDesc);
+        
+        summaryDescription.insertAdjacentElement("beforeend", modalFade);
+        modalFade.insertAdjacentElement("beforeend", modalDialog);
+        modalDialog.insertAdjacentElement("beforeend", modalContent);
+        modalContent.insertAdjacentElement("beforeend", modalHeader);
+        modalHeader.insertAdjacentElement("beforeend", modalHeaderTitle);
+        modalHeader.insertAdjacentElement("beforeend", btnModalHeaderClose);
+        modalContent.insertAdjacentElement("beforeend", modalBody);
+
+        divCardBody.insertAdjacentElement("beforeend", divBtnOfficialSite);
+        divBtnOfficialSite.insertAdjacentElement("beforeend", btnOfficialSite);
+
+        numberOfmodal++;
     }
 }
 
@@ -261,7 +265,7 @@ form.addEventListener("submit", async function(event) {
 
     try {
         const response = await axios("https://api.tvmaze.com/search/shows", config);
-
+        
         if (response.data.length < 1) {
             dataSearchIsNotFound();
         } else {
@@ -270,6 +274,7 @@ form.addEventListener("submit", async function(event) {
         }
     } catch(err) {
         fetchDataError();
+        console.error(err); 
     }
 });
 
