@@ -153,6 +153,35 @@ function getDataSearchShows(shows) {
     }
 }
 
+function dataSearchIsNotFound() {
+    if (document.querySelector("#container-data-shows")) {
+        document.querySelector("#container-caption-result").remove();
+        document.querySelector("#container-data-shows").remove();
+    }
+
+    const containerCaptionResult = document.createElement("div");
+    containerCaptionResult.setAttribute("id", "container-caption-result");
+    
+    const thead = document.createElement("h3");
+    thead.innerText = "# Result";
+
+    const hr = document.createElement("hr");
+    const containerResult = document.createElement("div");
+    containerResult.setAttribute("id", "container-data-shows");
+
+    const alertNotFound = document.createElement("div");
+    alertNotFound.classList.add("alert");
+    alertNotFound.classList.add("alert-warning");
+    alertNotFound.setAttribute("role", "alert");
+    alertNotFound.innerText = "OOPS! Sorry, an error has occured, Requested data not found!";
+
+    containerCaptionResult.insertAdjacentElement("beforeend", thead);
+    containerCaptionResult.insertAdjacentElement("beforeend", hr);
+    containerPoster.insertAdjacentElement("beforeend", containerCaptionResult);
+    containerPoster.insertAdjacentElement("beforeend", containerResult);
+    containerResult.insertAdjacentElement("beforeend", alertNotFound);
+}
+
 form.addEventListener("submit", async function(event) {
     event.preventDefault();
 
@@ -166,10 +195,13 @@ form.addEventListener("submit", async function(event) {
 
     try {
         const response = await axios("https://api.tvmaze.com/search/shows", config);
-
-        getDataSearchShows(response.data);
-
-        form.elements["query-poster"].value = "";
+        
+        if (response.data.length < 1) {
+            dataSearchIsNotFound();
+        } else {
+            getDataSearchShows(response.data);
+            form.elements["query-poster"].value = "";
+        }
     } catch(err) {
         console.error(err);
     }
