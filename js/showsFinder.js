@@ -182,6 +182,35 @@ function dataSearchIsNotFound() {
     containerResult.insertAdjacentElement("beforeend", alertNotFound);
 }
 
+function FetchDataError() {
+    if (document.querySelector("#container-data-shows")) {
+        document.querySelector("#container-caption-result").remove();
+        document.querySelector("#container-data-shows").remove();
+    }
+
+    const containerCaptionResult = document.createElement("div");
+    containerCaptionResult.setAttribute("id", "container-caption-result");
+    
+    const thead = document.createElement("h3");
+    thead.innerText = "# Result";
+
+    const hr = document.createElement("hr");
+    const containerResult = document.createElement("div");
+    containerResult.setAttribute("id", "container-data-shows");
+
+    const alertNotFound = document.createElement("div");
+    alertNotFound.classList.add("alert");
+    alertNotFound.classList.add("alert-danger");
+    alertNotFound.setAttribute("role", "alert");
+    alertNotFound.innerText = "OOPS! Sorry, an error has occurred, The requested data failed!";
+
+    containerCaptionResult.insertAdjacentElement("beforeend", thead);
+    containerCaptionResult.insertAdjacentElement("beforeend", hr);
+    containerPoster.insertAdjacentElement("beforeend", containerCaptionResult);
+    containerPoster.insertAdjacentElement("beforeend", containerResult);
+    containerResult.insertAdjacentElement("beforeend", alertNotFound);
+}
+
 form.addEventListener("submit", async function(event) {
     event.preventDefault();
 
@@ -203,7 +232,7 @@ form.addEventListener("submit", async function(event) {
             form.elements["query-poster"].value = "";
         }
     } catch(err) {
-        console.error(err);
+        FetchDataError();
     }
 });
 
