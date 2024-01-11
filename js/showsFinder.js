@@ -274,7 +274,6 @@ form.addEventListener("submit", async function(event) {
         }
     } catch(err) {
         fetchDataError();
-        console.error(err); 
     }
 });
 
