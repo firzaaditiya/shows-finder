@@ -2,6 +2,8 @@ const form = document.querySelector("#search-form");
 const containerPoster = document.querySelector("#container-poster");
 const containerPreview = document.querySelector("#container-preview");
 
+document.querySelector("#copyright").innerHTML = `&copy; ${new Date().getFullYear()} ShowsFinder`;
+
 function getDataSearchShows(shows) {
     if (document.querySelector("#container-data-shows")) {
         document.querySelector("#container-caption-result").remove();
