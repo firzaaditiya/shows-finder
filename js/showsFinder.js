@@ -182,7 +182,7 @@ function dataSearchIsNotFound() {
     containerResult.insertAdjacentElement("beforeend", alertNotFound);
 }
 
-function FetchDataError() {
+function fetchDataError() {
     if (document.querySelector("#container-data-shows")) {
         document.querySelector("#container-caption-result").remove();
         document.querySelector("#container-data-shows").remove();
@@ -211,6 +211,41 @@ function FetchDataError() {
     containerResult.insertAdjacentElement("beforeend", alertNotFound);
 }
 
+function fetchDataRecommendationError() {
+    const thead = document.createElement("h3");
+    thead.innerText = "# Recommendation";
+
+    const hr = document.createElement("hr");
+
+    const containerMessage = document.createElement("div");
+    containerMessage.classList.add("container");
+    containerMessage.classList.add("flex-grow-1");
+
+    const containerMessageInner = document.createElement("div");
+    containerMessageInner.classList.add("p-5");
+    containerMessageInner.classList.add("text-center");
+
+    const headText1 = document.createElement("h1");
+    headText1.classList.add("fw-bold");
+    headText1.innerText = "OPPS!";
+
+    const headText2 = document.createElement("h2");
+    headText2.classList.add("fw-bold");
+    headText2.innerText = "Error : 404 Not Found";
+    
+    const textError = document.createElement("p");
+    textError.innerText = "OOPS! Sorry, an error has occurred, The requested data failed!";
+
+    containerPreview.insertAdjacentElement("beforeend", thead);
+    containerPreview.insertAdjacentElement("beforeend", hr);
+
+    document.querySelector("main").insertAdjacentElement("beforeend", containerMessage);
+    containerMessage.insertAdjacentElement("beforeend", containerMessageInner);
+    containerMessageInner.insertAdjacentElement("beforeend", headText1);
+    containerMessageInner.insertAdjacentElement("beforeend", headText2);
+    containerMessageInner.insertAdjacentElement("beforeend", textError);
+}
+
 form.addEventListener("submit", async function(event) {
     event.preventDefault();
 
@@ -232,7 +267,7 @@ form.addEventListener("submit", async function(event) {
             form.elements["query-poster"].value = "";
         }
     } catch(err) {
-        FetchDataError();
+        fetchDataError();
     }
 });
 
@@ -390,6 +425,6 @@ addEventListener("DOMContentLoaded", async () => {
             }
         }
     } catch(err) {
-        console.error(err);
+        fetchDataRecommendationError();
     }
 });
