@@ -251,7 +251,7 @@ function fetchDataRecommendationError() {
 form.addEventListener("submit", async function(event) {
     event.preventDefault();
 
-    const submitedKeyword = form.elements["query-poster"].value;
+    const submitedKeyword = form.elements["query-search"].value;
 
     const config = {
         params: {
@@ -261,12 +261,12 @@ form.addEventListener("submit", async function(event) {
 
     try {
         const response = await axios("https://api.tvmaze.com/search/shows", config);
-        
+
         if (response.data.length < 1) {
             dataSearchIsNotFound();
         } else {
             getDataSearchShows(response.data);
-            form.elements["query-poster"].value = "";
+            form.elements["query-search"].value = "";
         }
     } catch(err) {
         fetchDataError();
