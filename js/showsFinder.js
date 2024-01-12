@@ -312,7 +312,7 @@ addEventListener("DOMContentLoaded", async () => {
             const isRegistered = randomIndex in listIndex;
 
             if (listIndex.length < 6) {
-                if (!isRegistered) {
+                if (isRegistered === false) {
                     if (response.data[randomIndex].image) {
                         listIndex.push(randomIndex);
 
