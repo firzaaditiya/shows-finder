@@ -111,11 +111,22 @@ function getDataSearchShows(shows) {
 
         const modalBody = document.createElement("div");
         modalBody.classList.add("modal-body");
-        modalBody.innerHTML = data.show.summary;
-        
-        const description = data.show.summary + " ";
-        const textSummaryDescription = (description.length > 70) ? data.show.summary.substring(0, 70).concat("...", "</p>") : data.show.summary;
-        summaryDescription.innerHTML = textSummaryDescription;
+
+        const description = (data.show.summary === null) ? null : data.show.summary + " ";
+
+        if (data.show.summary) {
+            modalBody.innerHTML = data.show.summary;
+        } else {
+            modalBody.innerHTML = "<p><i><mark>no film/animation description data available</mark></i></p>";
+        }
+
+        if (description === null) {
+            summaryDescription.innerHTML = "<p><i><mark>no film/animation description data available</mark></i></p>";
+        } else if (description.length > 70) {
+            summaryDescription.innerHTML = data.show.summary.substring(0, 70).concat("...", "</p>");
+        } else {
+            summaryDescription.innerHTML = data.show.summary;
+        }
 
         const divBtnOfficialSite = document.createElement("div");
         divBtnOfficialSite.classList.add("mt-2");
@@ -381,11 +392,22 @@ addEventListener("DOMContentLoaded", async () => {
     
                         const modalBody = document.createElement("div");
                         modalBody.classList.add("modal-body");
-                        modalBody.innerHTML = response.data[randomIndex].summary;
-                        
-                        const description = response.data[randomIndex].summary + " ";
-                        const textSummaryDescription = (description.length > 70) ? response.data[randomIndex].summary.substring(0, 70).concat("...", "</p>") : response.data[randomIndex].summary;
-                        summaryDescription.innerHTML = textSummaryDescription;
+
+                        const description = (response.data[randomIndex].summary === null) ? null : response.data[randomIndex].summary + " ";
+
+                        if (response.data[randomIndex].summary) {
+                            modalBody.innerHTML = response.data[randomIndex].summary;
+                        } else {
+                            modalBody.innerHTML = "<p><i><mark>no film/animation description data available</mark></i></p>";
+                        }
+
+                        if (description === null) {
+                            summaryDescription.innerHTML = "<p><i><mark>no film/animation description data available</mark></i></p>";
+                        } else if (description.length > 70) {
+                            summaryDescription.innerHTML = response.data[randomIndex].summary.substring(0, 70).concat("...", "</p>");
+                        } else {
+                            summaryDescription.innerHTML = response.data[randomIndex].summary;
+                        }
     
                         const divBtnOfficialSite = document.createElement("div");
                         divBtnOfficialSite.classList.add("mt-2");
